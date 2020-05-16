@@ -1,0 +1,15 @@
+public class Solution {
+    public int reverse(int A) {
+       int reverse=0;
+       while(A!=0)
+       {
+           int lastdigit = A%10;
+           if(reverse>Integer.MAX_VALUE/10||reverse<Integer.MIN_VALUE/10||(reverse==Integer.MAX_VALUE/10&&lastdigit>7)||(reverse==Integer.MIN_VALUE/10&&lastdigit>8))
+               return 0;
+           reverse = reverse*10+lastdigit;
+           A=A/10;
+       }
+        return reverse;
+    }
+}
+

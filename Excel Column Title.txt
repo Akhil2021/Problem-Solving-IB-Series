@@ -1,0 +1,17 @@
+public class Solution {
+    public String convertToTitle(int A) {
+        StringBuilder str = new StringBuilder("");
+        int pow=26;
+        while(A>0)
+        {
+            int i = A%pow;
+            if(i==0)
+                i=pow;
+            A = A - i;
+            i = i/(pow/26);
+            pow = pow*26;
+            str.append((char)(i+64));
+        }
+        return str.toString();
+    }
+}

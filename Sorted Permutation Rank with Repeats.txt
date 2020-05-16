@@ -1,0 +1,55 @@
+public class Solution {
+    public long pow(long A,long B)
+    {
+        long res=1;
+        while(B>0)
+        {
+            if((B&1)==1)
+                res = (res*A)%1000003;
+            B = B>>1;
+            A = (A*A)%1000003;
+        }
+        return res;
+    }
+    public int findRank(String A) {
+        
+        int n = A.length();
+        long[] fact = new long[n+1];
+        fact[0]=1;
+        for(int i=1;i<=n;i++)
+        {
+            fact[i]=(fact[i-1]*i)%1000003;
+        }
+        long rank=1;
+        for(int i=0;i<n;i++)
+        {
+         HashMap<Character,Integer> h = new HashMap<Character,Integer>();   
+            int count=0;
+            for(int j=i;j<n;j++)
+            {
+                if(A.charAt(j)<A.charAt(i))
+                    count++;
+                if(h.containsKey(A.charAt(j)))
+                    h.put(A.charAt(j),h.get(A.charAt(j))+1);
+                else
+                    h.put(A.charAt(j),1);
+                
+            }
+            count = count%1000003;
+            long d=1;
+            for(int j=i;j<n;j++)
+            {
+                if(h.containsKey(A.charAt(j)))
+                {
+                    d = (d*fact[h.get(A.charAt(j))])%1000003;
+                    h.remove(A.charAt(j));
+                }
+            }
+            
+            rank=(rank+(((count*fact[n-i-1])%1000003)*pow(d,1000001)%1000003)%1000003)%1000003;
+            
+        }
+        return (int)rank;
+    }
+}
+
