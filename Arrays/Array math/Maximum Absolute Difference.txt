@@ -1,0 +1,28 @@
+public class Solution {
+    public int MAX(int a,int b)
+    {
+        if(a>b)
+            return a;
+        return b;
+    }
+    public int MIN(int a,int b)
+    {
+        if(a<b)
+            return a;
+        return b;
+    }
+    public int maxArr(int[] A) {
+        int max1 = Integer.MIN_VALUE,min1=Integer.MAX_VALUE,max2=Integer.MIN_VALUE,min2=Integer.MAX_VALUE;
+        for(int i=0;i<A.length;i++)
+        {
+            max1 = MAX(max1,A[i]+(i+1));
+            min1 = MIN(min1,A[i]+(i+1));
+            max2 = MAX(max2,A[i]-(i+1));
+            min2 = MIN(min2,A[i]-(i+1));
+            
+        }
+        int x = max1 - min1;
+        int y = max2 - min2;
+        return MAX(x,y);
+    }
+}

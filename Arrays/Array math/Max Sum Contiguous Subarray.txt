@@ -1,0 +1,19 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int MAX(int a,int b)
+    {
+        if(a>b)
+            return a;
+        return b;
+    }
+    public int maxSubArray(final int[] A) {
+        int sum=0,maxsum=0,flag=0,max=Integer.MIN_VALUE,curr=0;
+        for(int i=0;i<A.length;i++)
+        {
+            maxsum = MAX(maxsum,curr+A[i]);
+            curr = MAX(0,curr+A[i]);
+        }
+        
+        return maxsum;
+    }
+}

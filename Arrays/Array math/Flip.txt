@@ -1,0 +1,35 @@
+public class Solution {
+    public int[] flip(String A) {
+        int n = A.length();
+        int firstindex=0,lastindex=0,max=0,curr=0;
+        int i=0,j=0;
+        while(i<n&&j<n)
+        {
+            while(i<n&&A.charAt(i)=='1')
+                i++;
+            j=i;
+            curr=0;
+            while(curr>=0&&j<n)
+            {
+                if(A.charAt(j)=='0')
+                    curr++;
+                else
+                    curr--;
+                if(curr>max)
+                {
+                    max = curr;
+                    firstindex = i;
+                    lastindex = j;
+                }
+                j++;
+            }
+            i = j;
+        }
+        int[] d = new int[2];
+        if(max==0)
+            return new int[0];
+        d[0]=firstindex+1;
+        d[1]=lastindex+1;
+        return d;
+    }
+}
