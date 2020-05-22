@@ -1,0 +1,67 @@
+import java.lang.Math;
+import java.util.HashMap;
+import java.util.Comparator;
+import java.util.Arrays;
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public void merge(String[] a,int l,int mid,int h)
+    {
+        String[] b = new String[h-l+1];
+        int n1 = mid-1,n2=h;
+        int i=l,j=mid,idx=0;
+        while(i<=n1&&j<=n2)
+        {
+            StringBuilder str1 = new StringBuilder(a[i]);
+            str1.append(a[j]);
+            String s1 = str1.toString();
+            StringBuilder str2 = new StringBuilder(a[j]);
+            str2.append(a[i]);
+            String s2 = str2.toString();
+            int compare = s1.compareTo(s2);
+            if(compare>0)
+                b[idx++]=a[i++];
+            else
+                b[idx++]=a[j++];
+        }
+        while(i<=n1)
+            b[idx++] = a[i++];
+        while(j<=n2)
+            b[idx++]=a[j++];
+        for(int k=l;k<=h;k++)
+            a[k] = b[k-l];
+    }
+    public void mergesort(String[] a,int l,int h)
+    {
+        if(l<h)
+        {
+            int mid = l+(h-l)/2;
+            mergesort(a,l,mid);
+            mergesort(a,mid+1,h);
+            merge(a,l,mid+1,h);
+        }
+    }
+    public String largestNumber(final int[] A) {
+        int n = A.length;
+        String[] a = new String[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i] = Integer.toString(A[i]);
+        }
+        mergesort(a,0,n-1);
+        StringBuilder str = new StringBuilder("");
+        int idx=n;
+        for(int i=0;i<n;i++)
+        {
+            if(!(a[i].equals("0")))
+            {
+                idx=i;
+                break;
+            }
+        }
+        for(int i=idx;i<n;i++)
+            str.append(a[i]);
+        if(idx==n)//idx is used to remove trialing zeroes if string is 0000 then return only 0
+            str.append(0);
+        return str.toString();
+    }
+}

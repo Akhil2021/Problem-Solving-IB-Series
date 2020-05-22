@@ -1,0 +1,63 @@
+public class Solution {
+    public int MIN(int a,int b)
+    {
+        if(a<b)
+            return a;
+        return b;
+    }
+    public int MAX(int a,int b)
+    {
+        if(a>b)
+            return a;
+        return b;
+    }
+    public int[] subUnsort(int[] A) {
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        int l=0,r=0;
+        int n = A.length;
+        for(int i=0;i<n-1;i++)
+        {
+            if(A[i]>A[i+1])
+            {
+                l = i;
+                break;
+            }
+        }
+        for(int i=n-1;i>0;i--)
+        {
+            if(A[i]<A[i-1])
+            {
+                r = i;
+                break;
+            }
+        }
+        for(int i=l+1;i<n;i++)
+            min = MIN(min,A[i]);
+       for(int i=0;i<r;i++)
+            max = MAX(max,A[i]);
+        for(int i=l-1;i>=0;i--)
+        {
+            if(A[i]>min)
+                l = i;
+        }
+        for(int i=r+1;i<n;i++)
+        {
+            if(A[i]<max)
+                r=i;
+        }
+        if(l>=r)
+        {
+            int[] a=new int[1];
+            a[0]=-1;
+            return a;
+        }
+        else
+        {
+            int[] a= new int[2];
+            a[0]=l;
+            a[1]=r;
+            return a;
+        }
+    }
+}

@@ -1,0 +1,46 @@
+class pair{
+    int x,y;
+    pair(int x,int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+}
+public class Solution {
+    public int MAX(int a,int b)
+    {
+        if(a>b)
+            return a;
+        return b;
+    }
+    public int MIN(int a,int b)
+    {
+        if(a<b)
+            return a;
+        return b;
+    }
+    public int maximumGap(final int[] A) {
+    int n = A.length;
+    HashMap<Integer,pair> h = new HashMap<Integer,pair>();
+    for(int i=0;i<n;i++)
+    {
+        if(!h.containsKey(A[i]))
+            h.put(A[i],new pair(i,i));
+        else
+        {
+            int x = h.get(A[i]).x;
+            h.put(A[i],new pair(x,i));
+        }
+    }
+    Arrays.sort(A);
+    int min = h.get(A[0]).x;
+    int ans = 0;
+    for(int i=1;i<n;i++)
+    {
+        ans = MAX(ans,h.get(A[i]).y-min);
+        min = MIN(min,h.get(A[i]).x);
+    }
+    return ans;
+    
+    }
+}
